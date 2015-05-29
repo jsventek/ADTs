@@ -59,45 +59,47 @@ else
 endif
 
 ifeq (\$(OS),Linux)
-    LIBS=-lpthread
+    LIBS=-pthread
 else
     LIBS=
 endif
 
 CFLAGS=-W -Wall -pedantic \$(OPTS)
-OBJECTS=iterator.o arraylist.o linkedlist.o hashmap.o bqueue.o uqueue.o treeset.o tsiterator.o tsarraylist.o tslinkedlist.o tshashmap.o tsbqueue.o tsuqueue.o tstreeset.o
+NAMES=iterator arraylist linkedlist hashmap bqueue uqueue treeset tsiterator tsarraylist tslinkedlist tshashmap tsbqueue tsuqueue tstreeset
+HEADERS=\${addsuffix .h, \${NAMES}}
+OBJECTS=\${addsuffix .o, \${NAMES}}
 PROGRAMS= altest\$(EXT) hmtest\$(EXT) lltest\$(EXT) tstest\$(EXT) tsaltest\$(EXT) tslltest\$(EXT) tshmtest\$(EXT) tststest\$(EXT) bqtest\$(EXT) uqtest\$(EXT)
 
 all: \$(PROGRAMS)
 
-altest\$(EXT): altest.c arraylist.h iterator.h libADTs.a \$(LIBS)
+altest\$(EXT): altest.c arraylist.h iterator.h libADTs.a
 	\$(CC) -o altest\$(EXT) \$(CFLAGS) altest.c libADTs.a \$(LIBS)
 
-hmtest\$(EXT): hmtest.c hashmap.h iterator.h libADTs.a \$(LIBS)
+hmtest\$(EXT): hmtest.c hashmap.h iterator.h libADTs.a
 	\$(CC) -o hmtest\$(EXT) \$(CFLAGS) hmtest.c libADTs.a \$(LIBS)
 
-lltest\$(EXT): lltest.c linkedlist.h iterator.h libADTs.a \$(LIBS)
+lltest\$(EXT): lltest.c linkedlist.h iterator.h libADTs.a
 	\$(CC) -o lltest\$(EXT) \$(CFLAGS) lltest.c libADTs.a \$(LIBS)
 
-tstest\$(EXT): tstest.c treeset.h iterator.h libADTs.a \$(LIBS)
+tstest\$(EXT): tstest.c treeset.h iterator.h libADTs.a
 	\$(CC) -o tstest\$(EXT) \$(CFLAGS) tstest.c libADTs.a \$(LIBS)
 
-bqtest\$(EXT): bqtest.c bqueue.h iterator.h libADTs.a \$(LIBS)
+bqtest\$(EXT): bqtest.c bqueue.h iterator.h libADTs.a
 	\$(CC) -o bqtest\$(EXT) \$(CFLAGS) bqtest.c libADTs.a \$(LIBS)
 
-uqtest\$(EXT): uqtest.c uqueue.h iterator.h libADTs.a \$(LIBS)
+uqtest\$(EXT): uqtest.c uqueue.h iterator.h libADTs.a
 	\$(CC) -o uqtest\$(EXT) \$(CFLAGS) uqtest.c libADTs.a \$(LIBS)
 
-tsaltest\$(EXT): tsaltest.c tsarraylist.h tsiterator.h libADTs.a \$(LIBS)
+tsaltest\$(EXT): tsaltest.c tsarraylist.h tsiterator.h libADTs.a
 	\$(CC) -o tsaltest\$(EXT) \$(CFLAGS) tsaltest.c libADTs.a \$(LIBS)
 
-tslltest\$(EXT): tslltest.c tslinkedlist.h tsiterator.h libADTs.a \$(LIBS)
+tslltest\$(EXT): tslltest.c tslinkedlist.h tsiterator.h libADTs.a
 	\$(CC) -o tslltest\$(EXT) \$(CFLAGS) tslltest.c libADTs.a \$(LIBS)
 
-tshmtest\$(EXT): tshmtest.c tshashmap.h tsiterator.h libADTs.a \$(LIBS)
+tshmtest\$(EXT): tshmtest.c tshashmap.h tsiterator.h libADTs.a
 	\$(CC) -o tshmtest\$(EXT) \$(CFLAGS) tshmtest.c libADTs.a \$(LIBS)
 
-tststest\$(EXT): tststest.c tstreeset.h tsiterator.h libADTs.a \$(LIBS)
+tststest\$(EXT): tststest.c tstreeset.h tsiterator.h libADTs.a
 	\$(CC) -o tststest\$(EXT) \$(CFLAGS) tststest.c libADTs.a \$(LIBS)
 
 libADTs.a: \$(OBJECTS)
@@ -119,6 +121,10 @@ tshashmap.o: tshashmap.c tshashmap.h tsiterator.h
 tstreeset.o: tstreeset.c tstreeset.h tsiterator.h
 tsuqueue.o: tsuqueue.c tsuqueue.h tsiterator.h
 tsbqueue.o: tsbqueue.c tsbqueue.h tsiterator.h
+
+install: libADTs.a
+	cp libADTs.a /usr/local/lib/
+	cp \$(HEADERS) /usr/local/include/
 
 clean:
 	rm -f *.o *~ *.stackdump \$(PROGRAMS) libADTs.a
