@@ -100,6 +100,8 @@ tstreeset.o: tstreeset.c tstreeset.h tsiterator.h
 tsuqueue.o: tsuqueue.c tsuqueue.h tsiterator.h
 tsbqueue.o: tsbqueue.c tsbqueue.h tsiterator.h
 
+install: libADTs.a
+	cp libADTs.a /usr/local/lib/
 clean:
 	rm -f *.o *~ *.stackdump $(PROGRAMS) libADTs.a
 
