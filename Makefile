@@ -1,14 +1,14 @@
 # Makefile for Glasgow ADT library
-# Customized for laptop running CYGWIN_NT-6.2 on 14 Jan 2014 13:43:15
+# Customized for fergus-Ubuntu running Linux on Fri May 29 12:17:24 BST 2015
 # 
-OS=Cygwin
+OS=Linux
 # Template makefile for Glasgow ADT library
 #
 # Conditionalized upon the value of $(OS) - if unspecified in the command
 # line, OS is assumed to be the value defined above
 #
 # e.g.
-#      make			# makes appropriate binaries for Windows_NT
+#      make			# makes appropriate binaries for 
 #      make OS=Cygwin 		# makes appropriate binaries for Cygwin
 #      make OS=Darwin 		# makes appropriate binaries for OSX
 #      make OS=Linux 		# makes appropriate binaries for Linux
@@ -45,21 +45,23 @@ else
 endif
 
 CFLAGS=-W -Wall -pedantic $(OPTS)
-OBJECTS=iterator.o arraylist.o linkedlist.o hashmap.o bqueue.o uqueue.o treeset.o tsiterator.o tsarraylist.o tslinkedlist.o tshashmap.o tsbqueue.o tsuqueue.o tstreeset.o
+NAMES=iterator arraylist linkedlist hashmap bqueue uqueue treeset tsiterator tsarraylist tslinkedlist tshashmap tsbqueue tsuqueue tstreeset
+HEADERS=${addsuffix .h, ${NAMES}}
+OBJECTS=${addsuffix .o, ${NAMES}}
 PROGRAMS= altest$(EXT) hmtest$(EXT) lltest$(EXT) tstest$(EXT) tsaltest$(EXT) tslltest$(EXT) tshmtest$(EXT) tststest$(EXT) bqtest$(EXT) uqtest$(EXT)
 
 all: $(PROGRAMS)
 
-altest$(EXT): altest.c arraylist.h iterator.h libADTs.a 
+altest$(EXT): altest.c arraylist.h iterator.h libADTs.a
 	$(CC) -o altest$(EXT) $(CFLAGS) altest.c libADTs.a $(LIBS)
 
 hmtest$(EXT): hmtest.c hashmap.h iterator.h libADTs.a
 	$(CC) -o hmtest$(EXT) $(CFLAGS) hmtest.c libADTs.a $(LIBS)
 
-lltest$(EXT): lltest.c linkedlist.h iterator.h libADTs.a 
+lltest$(EXT): lltest.c linkedlist.h iterator.h libADTs.a
 	$(CC) -o lltest$(EXT) $(CFLAGS) lltest.c libADTs.a $(LIBS)
 
-tstest$(EXT): tstest.c treeset.h iterator.h libADTs.a 
+tstest$(EXT): tstest.c treeset.h iterator.h libADTs.a
 	$(CC) -o tstest$(EXT) $(CFLAGS) tstest.c libADTs.a $(LIBS)
 
 bqtest$(EXT): bqtest.c bqueue.h iterator.h libADTs.a
@@ -102,6 +104,8 @@ tsbqueue.o: tsbqueue.c tsbqueue.h tsiterator.h
 
 install: libADTs.a
 	cp libADTs.a /usr/local/lib/
+	cp $(HEADERS) /usr/local/include/
+
 clean:
 	rm -f *.o *~ *.stackdump $(PROGRAMS) libADTs.a
 

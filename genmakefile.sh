@@ -65,7 +65,9 @@ else
 endif
 
 CFLAGS=-W -Wall -pedantic \$(OPTS)
-OBJECTS=iterator.o arraylist.o linkedlist.o hashmap.o bqueue.o uqueue.o treeset.o tsiterator.o tsarraylist.o tslinkedlist.o tshashmap.o tsbqueue.o tsuqueue.o tstreeset.o
+NAMES=iterator arraylist linkedlist hashmap bqueue uqueue treeset tsiterator tsarraylist tslinkedlist tshashmap tsbqueue tsuqueue tstreeset
+HEADERS=\${addsuffix .h, \${NAMES}}
+OBJECTS=\${addsuffix .o, \${NAMES}}
 PROGRAMS= altest\$(EXT) hmtest\$(EXT) lltest\$(EXT) tstest\$(EXT) tsaltest\$(EXT) tslltest\$(EXT) tshmtest\$(EXT) tststest\$(EXT) bqtest\$(EXT) uqtest\$(EXT)
 
 all: \$(PROGRAMS)
@@ -122,6 +124,7 @@ tsbqueue.o: tsbqueue.c tsbqueue.h tsiterator.h
 
 install: libADTs.a
 	cp libADTs.a /usr/local/lib/
+	cp \$(HEADERS) /usr/local/include/
 
 clean:
 	rm -f *.o *~ *.stackdump \$(PROGRAMS) libADTs.a
