@@ -279,6 +279,7 @@ void resize(HashMap *hm) {
 }
 
 int hm_put(HashMap *hm, char *key, void *element, void **previous) {
+    printf("entering put: %p %s %p %p\n",hm,key,element,previous);
     long i;
     HMEntry *p;
     int ans = 0;
@@ -289,7 +290,7 @@ int hm_put(HashMap *hm, char *key, void *element, void **previous) {
             resize(hm);
     }
     p = findKey(hm, key, &i);
-    if (p != NULL) {
+    if (p != NULL && previous != NULL) {
         *previous = p->element;
         p->element = element;
         ans = 1;
@@ -302,7 +303,9 @@ int hm_put(HashMap *hm, char *key, void *element, void **previous) {
                 p->element = element;
                 p->next = hm->buckets[i];
                 hm->buckets[i] = p;
-                *previous = NULL;
+                if(previous != NULL) {
+                    *previous = NULL;
+                }
                 hm->size++;
                 hm->load += hm->increment;
                 hm->changes++;
