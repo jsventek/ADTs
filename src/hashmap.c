@@ -279,7 +279,7 @@ void resize(HashMap *hm) {
 }
 
 int hm_put(HashMap *hm, char *key, void *element, void **previous) {
-    printf("entering put: %p %s %p %p\n",hm,key,element,previous);
+    /*printf("entering put: %p %s %p %p\n",hm,key,element,previous);*/
     long i;
     HMEntry *p;
     int ans = 0;
