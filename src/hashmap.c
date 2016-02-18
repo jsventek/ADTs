@@ -246,7 +246,7 @@ char **hm_keyArray(HashMap *hm, long *len) {
 /*
  * routine that resizes the hashmap
  */
-void resize(HashMap *hm) {
+static void resize(HashMap *hm) {
     int N;
     HMEntry *p, *q, **array;
     long i, j;
