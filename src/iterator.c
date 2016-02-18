@@ -30,7 +30,7 @@
  */
 
 #include "iterator.h"
-#include "stdlib.h"
+#include <stdlib.h>
 
 /*
  * implementation for generic iterator
