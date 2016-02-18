@@ -44,7 +44,7 @@ typedef struct iterator Iterator;
  * creates an iterator from the supplied arguments; it is for use by the
  * iterator factory methods in ADTs
  *
- * iterator assumes responsibility for elements[] if create is succesful
+ * NB - iterator assumes responsibility for elements[] if create is successful
  * i.e. it_destroy will free the array of pointers
  *
  * returns pointer to iterator if successful, NULL otherwise
