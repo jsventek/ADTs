@@ -79,9 +79,11 @@ int hm_containsKey(HashMap *hm, char *key);
 
 /*
  * returns an array containing all of the entries of the hashmap in
- * an arbitrary order; returns the length of the list in `len'
+ * an arbitrary order; returns the length of the list in `*len'
  *
  * returns pointer to HMEntry * array of elements, or NULL if malloc failure
+ *
+ * NB - the caller is responsible for freeing the HMEntry * array when finished
  */
 HMEntry **hm_entryArray(HashMap *hm, long *len);
 
@@ -99,9 +101,11 @@ int hm_isEmpty(HashMap *hm);
 
 /*
  * returns an array containing all of the keys in the hashmap in
- * an arbitrary order; returns the length of the list in `len'
+ * an arbitrary order; returns the length of the list in `*len'
  *
  * returns pointer to char * array of keys, or NULL if malloc failure
+ *
+ * NB - the caller is responsible for freeing the char * array when finished
  */
 char **hm_keyArray(HashMap *hm, long *len);
 
@@ -118,7 +122,7 @@ int hm_put(HashMap *hm, char *key, void *element, void **previous);
  * removes the entry associated with `key' if one exists; returns element
  * associated with key in `*element'
  *
- * returns 1 if successful, 0 if `i'th position was not occupied
+ * returns 1 if successful, 0 if no element associated with `key'
  */
 int hm_remove(HashMap *hm, char *key, void **element);
 
@@ -137,7 +141,8 @@ Iterator *hm_it_create(HashMap *hm);
 
 /*
  * accessor methods for obtaining key and value from an HMEntry
- * used with return from it_next on iterator
+ * used with return from it_next() on iterator and with elements of HMEntry *
+ * array returned by hm_entryArray()
  */
 char *hmentry_key(HMEntry *hme);
 void *hmentry_value(HMEntry *hme);
