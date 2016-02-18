@@ -45,6 +45,9 @@ typedef struct treeset TreeSet;	/* opaque type definition */
 /*
  * create a treeset that is ordered using `cmpFunction' to compare two elements
  *
+ * `cmpFunction(first, second)' returns 0 if first==second, <0 if first<second,
+ * and >0 if first>second
+ *
  * returns a pointer to the treeset, or NULL if there are malloc() errors
  */
 TreeSet *ts_create(int (*cmpFunction)(void *, void *));
@@ -86,7 +89,7 @@ void ts_clear(TreeSet *ts, void (*userFunction)(void *element));
 int ts_contains(TreeSet *ts, void *element);
 
 /*
- * returns the first (lowest) element currently in the set
+ * returns the first (smallest) element currently in the set
  *
  * returns 1 if non-empty, 0 if empty
  */
@@ -158,7 +161,7 @@ long ts_size(TreeSet *ts);
  * compare function
  *
  * returns pointer to the array or NULL if error
- * returns number of elements in the array in len
+ * returns number of elements in the array in *len
  */
 void **ts_toArray(TreeSet *ts, long *len);
 
