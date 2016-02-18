@@ -40,13 +40,10 @@
 
 #include "iterator.h"
 
-#define DEFAULT_CAPACITY 25L
-#define MAX_CAPACITY 10240L
-
 typedef struct bqueue BQueue;		/* opaque type definition */
 
 /*
- * create a bounded queue; if capacity is 0L, give it a default capacity
+ * create a bounded queue; if capacity is 0L, give it a default capacity (25L)
  *
  * returns a pointer to the queue, or NULL if there are malloc() errors
  */
@@ -77,14 +74,16 @@ void bq_clear(BQueue *bq, void (*userFunction)(void *element));
 int bq_add(BQueue *bq, void *element);
 
 /*
- * retrieves, but does not remove, the head of the queue
+ * retrieves, but does not remove, the head of the queue, returning that
+ * element in `*element'
  *
  * returns 1 if successful, 0 if unsuccessful (queue is empty)
  */
 int bq_peek(BQueue *bq, void **element);
 
 /*
- * Retrieves, and removes, the head of the queue
+ * Retrieves, and removes, the head of the queue, returning that
+ * element in `*element'
  *
  * return 1 if successful, 0 if not (queue is empty)
  */
@@ -103,9 +102,12 @@ int bq_isEmpty(BQueue *bq);
 /*
  * returns an array containing all of the elements of the queue in
  * proper sequence (from first to last element); returns the length of the
- * queue in `len'
+ * queue in `*len'
  *
  * returns pointer to void * array of elements, or NULL if malloc failure
+ *
+ * NB - it is the caller's responsibility to free the void * array when
+ *      finished with it
  */
 void **bq_toArray(BQueue *bq, long *len);
 
