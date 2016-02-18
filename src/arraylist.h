@@ -116,7 +116,7 @@ int al_remove(ArrayList *al, long i, void **element);
 
 /*
  * relaces the `i'th element of the arraylist with `element';
- * returns the value that previously occupied that position in `previous'
+ * returns the value that previously occupied that position in `*previous'
  *
  * returns 1 if successful
  * returns 0 if `i'th position not currently occupied
@@ -131,9 +131,12 @@ long al_size(ArrayList *al);
 /*
  * returns an array containing all of the elements of the list in
  * proper sequence (from first to last element); returns the length of
- * the list in `len'
+ * the list in `*len'
  *
  * returns pointer to void * array of elements, or NULL if malloc failure
+ *
+ * NB - the caller is responsible for freeing the void * array when finished
+ *      with it
  */
 void **al_toArray(ArrayList *al, long *len);
 
