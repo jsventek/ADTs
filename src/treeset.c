@@ -40,7 +40,7 @@
 typedef struct tnode {
     struct tnode *link[2];	/* 0 is left, 1 is right */
     void *element;
-    int balance;			/* difference between heights of l and r subs */
+    int balance;		/* difference between heights of l and r subs */
 } TNode;
 
 struct treeset {
