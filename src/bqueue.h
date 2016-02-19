@@ -40,6 +40,10 @@
 
 #include "iterator.h"
 
+/* these are needed here for bqueue.c and tsbqueue.c */
+#define DEFAULT_CAPACITY 25L
+#define MAX_CAPACITY 10240L
+
 typedef struct bqueue BQueue;		/* opaque type definition */
 
 /*

@@ -36,9 +36,6 @@
 #include "bqueue.h"
 #include <stdlib.h>
 
-#define DEFAULT_CAPACITY 25L
-#define MAX_CAPACITY 10240L
-
 struct bqueue {
     long count;
     long size;
