@@ -254,6 +254,8 @@ static void resize(HashMap *hm) {
     N = 2 * hm->capacity;
     if (N > MAX_CAPACITY)
         N = MAX_CAPACITY;
+    if (N == hp->capacity)
+        return;
     array = (HMEntry **)malloc(N * sizeof(HMEntry *));
     if (array == NULL)
         return;
